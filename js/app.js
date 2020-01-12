@@ -1,25 +1,19 @@
 /*
- * Create a list that holds all of your cards
+ * Create a list that holds all of your cards.deckThere is a neat way to double an array:
+const cardList = ['x', 'y', 'z', 'a']; const doubleCardList = cardList.concat(cardList);
  */
 
-const images = [
-  "fa fa-diamond",
-  "fa fa-diamond",
-  "fa fa-paper-plane-o",
-  "fa fa-paper-plane-o",
-  "fa fa-anchor",
-  "fa fa-anchor",
-  "fa fa-bolt",
-  "fa fa-bolt",
-  "fa fa-cube",
-  "fa fa-cube",
-  "fa fa-leaf",
-  "fa fa-leaf",
-  "fa fa-bicycle",
-  "fa fa-bicycle",
-  "fa fa-bomb",
-  "fa fa-bomb"
+const imageList = [
+  "fa fa-reddit",
+  "fa fa-y-combinator",
+  "fa fa-slack",
+  "fa fa-stack-overflow",
+  "fa fa-steam",
+  "fa fa-trello",
+  "fa fa-skype",
+  "fa fa-twitter"
 ];
+const images = imageList.concat(imageList);
 
 const cardList = document.querySelector(".deck");
 
