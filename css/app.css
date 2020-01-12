@@ -1,39 +1,38 @@
 html {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 *,
 *::before,
 *::after {
-    box-sizing: inherit;
+  box-sizing: inherit;
 }
 
 html,
 body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    background: #ffffff url('../img/geometry.svg'); /* Background pattern from Subtle Patterns */
-    font-family: 'Coda', cursive;
-    background-repeat: no-repeat;
-    background-size: cover;
-
+  background: #ffffff url("../img/geometry.svg"); /* Background pattern from Subtle Patterns */
+  font-family: Helvetica;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 h1 {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 600;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
 }
 
 /*
@@ -41,47 +40,47 @@ h1 {
  */
 
 .deck {
-    width: 660px;
-    min-height: 680px;
-    background: transparent;
-    padding: 32px;
-    border-radius: 10px;
-    box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.24);
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 0 3em;
+  width: 660px;
+  min-height: 680px;
+  background: transparent;
+  padding: 32px;
+  border-radius: 10px;
+  box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.24);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0 3em;
 }
 
 .deck .card {
-    height: 125px;
-    width: 125px;
-    background: #50714e;
-    font-size: 0;
-    color: #ffffff;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
+  height: 125px;
+  width: 125px;
+  background: #50714e;
+  font-size: 0;
+  color: #ffffff;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
 }
 
 .deck .card.open {
-    transform: rotateY(0);
-    background: #98b89f;
-    cursor: default;
+  transform: rotateY(0);
+  background: #98b89f;
+  cursor: default;
 }
 
 .deck .card.show {
-    font-size: 33px;
+  font-size: 33px;
 }
 
 .deck .card.match {
-    cursor: default;
-    background: #083a13;
-    font-size: 33px;
+  cursor: default;
+  background: #083a13;
+  font-size: 33px;
 }
 
 /*
@@ -89,24 +88,116 @@ h1 {
  */
 
 .score-panel {
-    text-align: left;
-    width: 345px;
-    margin-bottom: 10px;
+  text-align: left;
+  width: 345px;
+  margin-bottom: 10px;
 }
 
 .score-panel .stars {
-    margin: 0;
-    padding: 0;
-    display: inline-block;
-    margin: 0 5px 0 0;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  margin: 0 5px 0 0;
 }
 
 .score-panel .stars li {
-    list-style: none;
-    display: inline-block;
+  list-style: none;
+  display: inline-block;
 }
 
 .score-panel .restart {
-    float: right;
-    cursor: pointer;
+  float: right;
+  cursor: pointer;
+}
+.star-rating {
+  list-style: none;
+  display: inline-block;
+}
+
+/* CONGRATULATIONS MODAL */
+
+.modal {
+  transition: opacity 500ms;
+  /* Hides modal */
+  visibility: hidden;
+  /* Solves a bug that causes stars to stay on screen after closing modal */
+  opacity: 0;
+  background: rgb(16, 17, 16);
+  width: 80vw;
+  position: absolute;
+  z-index: 1;
+}
+
+.modal-content {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  text-align: center;
+  border-radius: 5px;
+  width: 85%;
+  position: relative;
+  /* Without this, stars from modal linger on the screen slightly longer than the rest of modal */
+  transition: all 2s ease-in-out;
+}
+
+.modal-content h2 {
+  margin-top: 0;
+  color: #333;
+}
+
+/* TODO: "x" button overlaps with "Congratulations" on some phones; fix */
+/* Affects "x" button on modal */
+.close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 30px;
+  font-weight: bold;
+  /* Removes default (link) underline */
+  text-decoration: none;
+  color: #333;
+}
+
+/* Changes color when hovering over "x" button on modal */
+.close:hover {
+  color: #1db9f2;
+}
+
+.modal-content .winning-message,
+.game-info {
+  max-height: 30%;
+  overflow: auto;
+  text-align: center;
+}
+
+.congrats-message {
+  margin-top: 0.9em;
+}
+
+/* Displays stars on the same line, removes bullet points */
+.star-rating li {
+  display: inline-block;
+  list-style: none;
+}
+
+/* Affects button inside modal that resets game on click */
+.play-again {
+  cursor: pointer;
+  background-color: #0a4f4f;
+  /* Removes default border that looks like shadow */
+  border: none;
+  padding: 0.7rem 1rem;
+  font-size: 1.1rem;
+  /* Button elements are inline-block by default */
+  display: block;
+  margin: 0 auto;
+  width: 40%;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.show {
+  /* Without these two (with !important), modal doesn't appear when game is won */
+  visibility: visible !important;
+  opacity: 100 !important;
 }

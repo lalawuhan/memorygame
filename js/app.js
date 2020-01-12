@@ -1,6 +1,7 @@
 /*
  * Create a list that holds all of your cards
  */
+
 const images = [
   "fa fa-diamond",
   "fa fa-diamond",
@@ -24,6 +25,12 @@ const cardList = document.querySelector(".deck");
 
 let openCards = [];
 let matchingCards = [];
+//new addition to modal
+let modal = document.getElementsByClassName("modal")[0];
+const restartButton = document.querySelector(".restart");
+const modalPlayAgainButton = document.querySelector(".play-again");
+// Calls reset() function (hides modal and restarts game) with user clicks "play again" button in modal
+modalPlayAgainButton.addEventListener("click", reset);
 
 //Start the game
 function startGame() {
@@ -62,7 +69,10 @@ function clicked(card) {
 }
 //Comparison of cards
 function matched(currentCard, previousCard) {
-  if (currentCard.innerHTML === previousCard.innerHTML) {
+  if (
+    currentCard.innerHTML === previousCard.innerHTML &&
+    currentCard != previousCard
+  ) {
     //Matching
     currentCard.classList.add("match");
     previousCard.classList.add("match");
@@ -83,8 +93,29 @@ function matched(currentCard, previousCard) {
 function gameOver() {
   if (matchingCards.length === images.length) {
     stopTimer();
-    alert("You Did It! Click To Restart Game");
+    congratulations();
+    //alert("You Did It! Click To Restart Game");
   }
+}
+function congratulations() {
+  if (matchingCards.length === images.length) {
+    //added modal options
+    modal.classList.add("show");
+    document.getElementsByClassName("final-moves")[0].innerHTML = moves;
+    document.getElementsByClassName("star-rating")[0].innerHTML =
+      starsAmount.innerHTML;
+    document.getElementsByClassName("total-time")[0].innerHTML =
+      totalSeconds + " seconds";
+  }
+}
+function reset() {
+  modal.classList.remove("show");
+  cardList.innerHTML = "";
+  //added new functions to reset content
+  modal.classList.remove("show");
+  shuffle(images);
+  startGame();
+  resetGame();
 }
 
 //Add moves
@@ -115,12 +146,12 @@ function starRating() {
 const timerBox = document.querySelector(".timer");
 let currentTimer,
   totalSeconds = 0;
-timerBox.innerHTML = totalSeconds + "seconds";
+timerBox.innerHTML = totalSeconds + " seconds";
 
 function startTimer() {
   currentTimer = setInterval(function() {
     totalSeconds++;
-    timerBox.innerHTML = totalSeconds + "seconds";
+    timerBox.innerHTML = totalSeconds + " seconds";
   }, 1000);
 }
 function stopTimer() {
@@ -128,12 +159,16 @@ function stopTimer() {
 }
 
 const restartBtn = document.querySelector(".restart");
-restartBtn.addEventListener("click", function() {
+restartBtn.addEventListener("click", reset);
+
+/* avoid duplication by using the reset function{
   cardList.innerHTML = "";
+  //added
+  modal.classList.remove("show");
   shuffle(images);
   startGame();
   resetGame();
-});
+}); */
 
 function resetGame() {
   matchingCards = [];
@@ -146,10 +181,10 @@ function resetGame() {
   firstClick = true;
   totalSeconds = 0;
   timerBox.innerHTML = totalSeconds + "seconds";
+  ///add
 }
 shuffle(images);
 startGame();
-
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -167,6 +202,7 @@ function shuffle(array) {
 
   return array;
 }
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
